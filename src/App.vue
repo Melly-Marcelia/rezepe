@@ -44,7 +44,7 @@ main.with-nav {
   padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom));
 }
 
-/* Quick, quiet screen change — enough to feel native without slowing navigation down. */
+/* Quick, quiet screen change, enough to feel native without slowing navigation down. */
 .page-enter-active,
 .page-leave-active {
   transition:

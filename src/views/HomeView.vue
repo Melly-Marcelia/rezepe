@@ -41,7 +41,7 @@ function search() {
 <template>
   <div class="home">
     <header class="appbar">
-      <BrandMark :size="30" wordmark class="brand" />
+      <BrandMark :size="26" wordmark class="brand" />
       <form class="search" role="search" @submit.prevent="search">
         <Search :size="19" aria-hidden="true" />
         <label class="sr-only" for="home-search">Search recipes, people or circles</label>
@@ -239,15 +239,18 @@ function search() {
   font-weight: 700;
 }
 
-/* Desktop: the sidebar already carries the logo and profile, so the bar is just search. */
+/* Desktop: the sidebar already carries the logo, so the bar is search with the profile top right. */
 @media (min-width: 1280px) {
-  .appbar .brand,
-  .appbar .me {
+  .appbar .brand {
     display: none;
   }
 
   .search {
     margin-left: 0;
+  }
+
+  .me {
+    margin-left: auto;
   }
 
   .search:not(:focus-within) .hint {

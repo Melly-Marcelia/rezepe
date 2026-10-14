@@ -42,7 +42,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
   <nav class="nav" aria-label="Main">
     <RouterLink to="/" class="logo" aria-label="Rezepe home">
       <BrandMark :size="38" class="logo-mark" />
-      <BrandMark :size="38" wordmark class="logo-full" />
+      <BrandMark :size="30" wordmark class="logo-full" />
     </RouterLink>
 
     <RouterLink to="/recipes/new" class="add" aria-label="Add a recipe">

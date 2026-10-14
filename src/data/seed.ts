@@ -11,7 +11,7 @@ import auntieKate from '@/assets/img/avatars/auntie-kate.webp'
 
 import grandmasCookbook from '@/assets/img/groups/grandmas-cookbook.webp'
 import thanksgiving from '@/assets/img/groups/thanksgiving.webp'
-import nuclearFamily from '@/assets/img/groups/nuclear-family.webp'
+import homeKitchen from '@/assets/img/groups/nuclear-family.webp'
 import birthday from '@/assets/img/groups/birthday.webp'
 import comfortFoods from '@/assets/img/groups/comfort-foods.webp'
 import christmasEve from '@/assets/img/groups/christmas-eve.webp'
@@ -27,12 +27,13 @@ import braisedRibs from '@/assets/img/food/braised-ribs.webp'
 import cinnamonRolls from '@/assets/img/food/cinnamon-rolls.webp'
 import lumpia from '@/assets/img/food/lumpia.webp'
 import { moreRecipes } from './moreRecipes'
+import { twists } from './twists'
 
 const MIN = 60_000
 const HOUR = 60 * MIN
 const DAY = 24 * HOUR
 
-export const SEED_VERSION = 2
+export const SEED_VERSION = 4
 
 export function createSeed(now = Date.now()): Db {
   const ago = (ms: number) => now - ms
@@ -49,7 +50,7 @@ export function createSeed(now = Date.now()): Db {
       servings: 4,
       minutes: 35,
       story:
-        "Heyy kiddos, I know instant noodles are good, but believe me, my fried noodles are even better. I never used a recipe — I cooked with my heart. But I kept seeing my children and grandchildren trying to recreate it, and though their noodles aren't quite the same, their laughter and effort remind me that my mie goreng is more than a meal. It's my legacy, carried on in their hands. So I finally wrote it down.",
+        "Heyy kiddos, I know instant noodles are good, but believe me, my fried noodles are even better. I never used a recipe. I cooked with my heart. But I kept seeing my children and grandchildren trying to recreate it, and though their noodles aren't quite the same, their laughter and effort remind me that my mie goreng is more than a meal. It's my legacy, carried on in their hands. So I finally wrote it down.",
       ingredients: [
         {
           items: [
@@ -113,7 +114,7 @@ export function createSeed(now = Date.now()): Db {
       servings: 4,
       minutes: 30,
       story:
-        'I stopped eating meat last year and thought I\'d lost Grandma\'s noodles forever. Turns out mushrooms soak up the sauce even better. Grandma tried it and said "not bad" — which from her is a gold medal.',
+        'I stopped eating meat last year and thought I\'d lost Grandma\'s noodles forever. Turns out mushrooms soak up the sauce even better. Grandma tried it and said "not bad", which from her is a gold medal.',
       ingredients: [
         {
           items: [
@@ -162,7 +163,7 @@ export function createSeed(now = Date.now()): Db {
       servings: 6,
       minutes: 90,
       story:
-        'I hope one day you understand how much effort I put in just so you can enjoy homemade food. Every New Year we sat around the table folding these together — the ugly ones were always the tastiest.',
+        'I hope one day you understand how much effort I put in just so you can enjoy homemade food. Every New Year we sat around the table folding these together, and the ugly ones were always the tastiest.',
       ingredients: [
         {
           title: 'Dough',
@@ -243,7 +244,7 @@ export function createSeed(now = Date.now()): Db {
       title: 'Blanquette de Veau',
       cuisine: 'French',
       authorId: 'me',
-      groupId: 'nuclear-family',
+      groupId: 'home-kitchen',
       servings: 6,
       minutes: 150,
       story:
@@ -283,12 +284,12 @@ export function createSeed(now = Date.now()): Db {
       title: "Mom's Chicken Nuggets",
       cuisine: 'American',
       authorId: 'mom',
-      groupId: 'nuclear-family',
+      groupId: 'home-kitchen',
       sinceYear: 2001,
       servings: 4,
       minutes: 40,
       story:
-        'Every Friday after swimming lessons. The secret is the cornflakes — never tell your father.',
+        'Every Friday after swimming lessons. The secret is the cornflakes. Never tell your father.',
       ingredients: [
         {
           items: [
@@ -318,7 +319,7 @@ export function createSeed(now = Date.now()): Db {
       title: 'Air-Fryer Chicken Nuggets',
       cuisine: 'American',
       authorId: 'ericaa',
-      groupId: 'nuclear-family',
+      groupId: 'home-kitchen',
       parentId: 'chicken-nuggets',
       twistNote: 'Air-fried instead of baked, and a spoon of parmesan in the cornflake crumb.',
       servings: 4,
@@ -392,7 +393,7 @@ export function createSeed(now = Date.now()): Db {
       servings: 12,
       minutes: 150,
       story:
-        'Birthday-morning rolls. Whoever has a birthday gets the middle one — that is the law.',
+        'Birthday-morning rolls. Whoever has a birthday gets the middle one. That is the law.',
       ingredients: [
         {
           title: 'Dough',
@@ -462,7 +463,8 @@ export function createSeed(now = Date.now()): Db {
   ]
 
   const extra = moreRecipes(ago)
-  recipes.push(...extra.recipes)
+  const variations = twists(ago)
+  recipes.push(...extra.recipes, ...variations.recipes)
 
   return {
     version: SEED_VERSION,
@@ -482,7 +484,7 @@ export function createSeed(now = Date.now()): Db {
         id: 'grandmas-cookbook',
         name: "Grandma's Cookbook",
         cover: grandmasCookbook,
-        description: 'Everything Grandma ever made us — written down at last.',
+        description: 'Everything Grandma ever made us, written down at last.',
         memberIds: [
           'me',
           'grandma',
@@ -504,9 +506,9 @@ export function createSeed(now = Date.now()): Db {
         createdAt: ago(120 * DAY),
       },
       {
-        id: 'nuclear-family',
-        name: 'Nuclear Family',
-        cover: nuclearFamily,
+        id: 'home-kitchen',
+        name: 'Home Kitchen',
+        cover: homeKitchen,
         description: 'Weeknight dinners from our house.',
         memberIds: ['me', 'mom', 'sistur', 'ericaa'],
         createdAt: ago(100 * DAY),
@@ -549,7 +551,7 @@ export function createSeed(now = Date.now()): Db {
         id: 'c2',
         recipeId: 'mie-goreng',
         authorId: 'cousin-james',
-        text: 'Made this for my flatmates — they asked for the recipe, so I sent them here!',
+        text: 'Made this for my flatmates and they asked for the recipe, so I sent them here!',
         createdAt: ago(2 * DAY),
       },
       {
@@ -567,6 +569,7 @@ export function createSeed(now = Date.now()): Db {
         createdAt: ago(2 * DAY),
       },
       ...extra.comments,
+      ...variations.comments,
     ],
     activitySeenAt: ago(5 * HOUR),
     settings: { units: 'metric', readAloud: true },

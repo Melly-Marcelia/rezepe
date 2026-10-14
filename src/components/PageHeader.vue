@@ -118,4 +118,14 @@ onBeforeUnmount(() => observer?.disconnect())
 h1 {
   font-size: clamp(32px, 4.4vw, 44px);
 }
+
+@media (max-width: 560px) {
+  .bar {
+    min-height: 60px;
+  }
+
+  .large {
+    margin-bottom: 20px;
+  }
+}
 </style>

@@ -41,10 +41,13 @@ const twists = computed(() => store.twistsOf(props.recipe.id).length)
     </div>
     <div class="body">
       <p v-if="parent" class="twist-of">
-        <GitBranch :size="13" aria-hidden="true" /> Twist on
-        {{
-          ownedTitle(parentAuthor?.id === store.me.id ? 'your' : parentAuthor?.name, parent.title)
-        }}
+        <GitBranch :size="13" aria-hidden="true" />
+        <span
+          >Twist on
+          {{
+            ownedTitle(parentAuthor?.id === store.me.id ? 'your' : parentAuthor?.name, parent.title)
+          }}</span
+        >
       </p>
       <p v-else class="cuisine">{{ recipe.cuisine }}</p>
       <h3>{{ recipe.title }}</h3>
@@ -81,10 +84,16 @@ const twists = computed(() => store.twistsOf(props.recipe.id).length)
 
 .media {
   position: relative;
+  overflow: hidden;
 }
 
 .img {
   aspect-ratio: 4 / 3;
+  transition: transform 0.4s ease;
+}
+
+.recipe-card:hover .img {
+  transform: scale(1.04);
 }
 
 .private {
@@ -124,7 +133,9 @@ const twists = computed(() => store.twistsOf(props.recipe.id).length)
 }
 
 .body {
-  display: grid;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   gap: 6px;
   padding: 14px 16px 16px;
 }
@@ -144,6 +155,14 @@ const twists = computed(() => store.twistsOf(props.recipe.id).length)
   gap: 4px;
   letter-spacing: 0.02em;
   text-transform: none;
+}
+
+.twist-of svg {
+  flex-shrink: 0;
+}
+
+.twist-of span {
+  min-width: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -151,13 +170,37 @@ const twists = computed(() => store.twistsOf(props.recipe.id).length)
 
 h3 {
   font-size: 20px;
+  line-height: 1.15;
 }
 
+/* Author sits on the bottom edge, so cards in a row line up whatever the title length. */
 .by {
+  margin-top: auto;
+  padding-top: 2px;
   display: flex;
   align-items: center;
   gap: 8px;
   font-size: 14px;
   color: var(--ink-muted);
+}
+
+@media (max-width: 560px) {
+  .wide .body {
+    gap: 4px;
+    padding: 12px 12px 14px;
+  }
+
+  .wide h3 {
+    font-size: 17px;
+  }
+
+  .wide .cuisine,
+  .wide .twist-of {
+    font-size: 11px;
+  }
+
+  .wide .by {
+    font-size: 13px;
+  }
 }
 </style>

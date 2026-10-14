@@ -163,6 +163,10 @@ function clear() {
   gap: 8px;
 }
 
+.chips .chip {
+  min-height: 40px;
+}
+
 .select .input {
   min-height: 40px;
   padding: 6px 14px;
@@ -181,6 +185,18 @@ function clear() {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 20px;
+}
+
+/* Phones: two compact columns instead of one oversized card per row. */
+@media (max-width: 560px) {
+  .select {
+    flex: 1 1 140px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
 }
 
 .empty {

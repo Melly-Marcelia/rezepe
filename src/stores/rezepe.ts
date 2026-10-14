@@ -13,7 +13,7 @@ function load(): Db {
       if (db.version === SEED_VERSION) return db
     }
   } catch {
-    // Corrupt or unavailable storage — fall back to the demo data.
+    // Corrupt or unavailable storage: fall back to the demo data.
   }
   return createSeed()
 }
@@ -33,7 +33,7 @@ export const useRezepe = defineStore('rezepe', () => {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(value))
       } catch {
-        // Quota exceeded (large photos) — keep working in memory.
+        // Quota exceeded (large photos): keep working in memory.
       }
     },
     { deep: true },

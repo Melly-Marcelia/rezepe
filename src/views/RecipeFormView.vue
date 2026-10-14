@@ -49,7 +49,7 @@ function toEditable(sections: IngredientSection[]): EditableSection[] {
 
 const p = parent.value
 const form = reactive({
-  title: p ? `${p.title} — my way` : '',
+  title: p ? `${p.title} (my way)` : '',
   cuisine: p?.cuisine ?? '',
   story: '',
   twistNote: '',
@@ -83,7 +83,7 @@ function applyPaste() {
   if (parsed.ingredients.length) form.sections = toEditable(parsed.ingredients)
   if (parsed.steps.length) form.steps = parsed.steps
   const n = parsed.ingredients.reduce((acc, s) => acc + s.items.length, 0)
-  importedNote.value = `Imported ${n} ingredients and ${parsed.steps.length} steps — check them below.`
+  importedNote.value = `Imported ${n} ingredients and ${parsed.steps.length} steps. Check them below.`
   pasteOpen.value = false
   pasteText.value = ''
 }
@@ -234,7 +234,7 @@ function save() {
               <Mic v-else :size="28" aria-hidden="true" />
               <b>{{ dictation.listening.value ? 'Stop dictating' : 'Tell the story' }}</b>
               <span>{{
-                dictation.listening.value ? 'Listening…' : 'Speak it — we’ll write it down'
+                dictation.listening.value ? 'Listening…' : 'Speak it and we’ll write it down'
               }}</span>
             </button>
             <label class="import">
@@ -341,7 +341,7 @@ function save() {
         <section class="card block">
           <h2>Ingredients</h2>
           <p class="muted">
-            One per line, like “200 g flour” — amounts scale automatically when someone cooks it.
+            One per line, like “200 g flour”. Amounts scale automatically when someone cooks it.
           </p>
           <div v-for="(section, si) in form.sections" :key="si" class="ing-section">
             <div class="section-row">

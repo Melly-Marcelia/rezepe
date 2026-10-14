@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import {
   Bookmark,
   BookmarkCheck,
@@ -53,12 +53,20 @@ const servings = ref(1)
 const system = ref<UnitSystem>(store.db.settings.units)
 const checked = ref(new Set<string>())
 const factor = computed(() => (recipe.value ? servings.value / recipe.value.servings : 1))
+const route = useRoute()
+
+/** Cook mode shows the amounts for the servings and units picked here. */
+const cookLink = computed(() => ({
+  path: `/recipes/${props.id}/cook`,
+  query: { servings: servings.value, units: system.value },
+}))
 
 watch(
   () => props.id,
   (id) => {
     store.markOpened(id)
-    servings.value = store.recipe(id)?.servings ?? 1
+    const fromCook = Math.round(Number(route.query.servings))
+    servings.value = fromCook >= 1 ? fromCook : (store.recipe(id)?.servings ?? 1)
     checked.value = new Set()
   },
   { immediate: true },
@@ -235,7 +243,7 @@ function printRecipe() {
         </ul>
 
         <div class="cta">
-          <RouterLink :to="`/recipes/${recipe.id}/cook`" class="btn btn-accent big">
+          <RouterLink :to="cookLink" class="btn btn-accent big">
             <ChefHat :size="22" aria-hidden="true" /> Start cooking
           </RouterLink>
           <button
@@ -365,7 +373,7 @@ function printRecipe() {
           <RouterLink :to="`/recipes/${parent?.id ?? recipe.id}/twist`" class="add-twist">
             <GitBranch :size="30" aria-hidden="true" />
             <b>Add your twist</b>
-            <span>Changed something? Save your version — the original stays as it is.</span>
+            <span>Changed something? Save your version. The original stays as it is.</span>
           </RouterLink>
         </div>
       </section>
@@ -416,7 +424,7 @@ function printRecipe() {
 
     <BottomSheet :open="sheetOpen" :title="recipe.title" @close="sheetOpen = false">
       <div class="sheet-actions">
-        <RouterLink :to="`/recipes/${recipe.id}/cook`" class="sheet-item">
+        <RouterLink :to="cookLink" class="sheet-item">
           <ChefHat :size="22" aria-hidden="true" /> Start cook mode
         </RouterLink>
         <RouterLink :to="`/recipes/${recipe.id}/twist`" class="sheet-item">

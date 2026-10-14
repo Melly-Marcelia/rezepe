@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import {
   X,
   ChevronLeft,
@@ -17,7 +17,7 @@ import {
   MessageCircle,
 } from 'lucide-vue-next'
 import { useRezepe } from '@/stores/rezepe'
-import { findTimers, formatClock, formatIngredient } from '@/lib/quantity'
+import { findTimers, formatClock, formatIngredient, type UnitSystem } from '@/lib/quantity'
 import { speak, stopSpeaking, canSpeak, useListener } from '@/composables/useVoice'
 import { useWakeLock } from '@/composables/useWakeLock'
 import { useTimers } from '@/composables/useTimers'
@@ -26,8 +26,22 @@ import type { Ingredient } from '@/types'
 const props = defineProps<{ id: string }>()
 const store = useRezepe()
 const router = useRouter()
+const route = useRoute()
 
 const recipe = computed(() => store.recipe(props.id))
+
+// Servings and units come from the recipe page, so scaled amounts carry over into the kitchen.
+const servings = computed(() => {
+  const n = Math.round(Number(route.query.servings))
+  return n >= 1 ? n : (recipe.value?.servings ?? 1)
+})
+const units = computed<UnitSystem>(() =>
+  route.query.units === 'us' || route.query.units === 'metric'
+    ? route.query.units
+    : store.db.settings.units,
+)
+const amount = (ing: Ingredient) =>
+  formatIngredient(ing, servings.value / (recipe.value?.servings || 1), units.value).amount
 const steps = computed(() => recipe.value?.steps ?? [])
 const index = ref(0)
 const finished = computed(() => index.value >= steps.value.length)
@@ -92,7 +106,7 @@ function readIngredients() {
   speak(
     'You will need: ' +
       allIngredients.value
-        .map((i) => `${formatIngredient(i, 1, 'metric').amount} ${i.name}`)
+        .map((i) => [amount(i), i.name].filter(Boolean).join(' '))
         .join(', '),
   )
 }
@@ -158,7 +172,7 @@ function onTouchEnd(e: TouchEvent) {
 }
 
 function close() {
-  router.push(`/recipes/${props.id}`)
+  router.push({ path: `/recipes/${props.id}`, query: { servings: servings.value } })
 }
 
 onMounted(() => {
@@ -242,7 +256,7 @@ onBeforeUnmount(() => {
         <div v-if="stepIngredients.length || stepTimers.length" class="extras">
           <ul v-if="stepIngredients.length" class="uses" aria-label="Ingredients for this step">
             <li v-for="(ing, i) in stepIngredients" :key="i">
-              <b>{{ formatIngredient(ing, 1, 'metric').amount }}</b> {{ ing.name }}
+              <b>{{ amount(ing) }}</b> {{ ing.name }}
             </li>
           </ul>
           <button
@@ -298,7 +312,7 @@ onBeforeUnmount(() => {
     <Transition name="drawer">
       <aside v-if="showIngredients" class="drawer" aria-label="All ingredients">
         <div class="drawer-head">
-          <h2>Ingredients</h2>
+          <h2>Ingredients · {{ servings }} {{ servings === 1 ? 'serving' : 'servings' }}</h2>
           <button
             class="round light"
             aria-label="Close ingredients"
@@ -311,7 +325,7 @@ onBeforeUnmount(() => {
           <h3 v-if="section.title">{{ section.title }}</h3>
           <ul>
             <li v-for="(ing, ii) in section.items" :key="ii">
-              <b>{{ formatIngredient(ing, 1, 'metric').amount }}</b> {{ ing.name }}
+              <b>{{ amount(ing) }}</b> {{ ing.name }}
             </li>
           </ul>
         </div>

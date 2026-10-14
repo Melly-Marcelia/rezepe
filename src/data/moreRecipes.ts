@@ -31,7 +31,7 @@ export function moreRecipes(ago: (ms: number) => number): {
       servings: 6,
       minutes: 210,
       story:
-        'My mother made this oxtail soup on every rainy Sunday, but she never wrote it down. After she passed I spent ten years trying to find it again by taste. I finally did — so here it is, written properly, so nobody in this family has to search for it again.',
+        'My mother made this oxtail soup on every rainy Sunday, but she never wrote it down. After she passed I spent ten years trying to find it again by taste. I finally did, so here it is, written properly, so nobody in this family has to search for it again.',
       ingredients: [
         {
           items: [
@@ -89,7 +89,7 @@ export function moreRecipes(ago: (ms: number) => number): {
       servings: 6,
       minutes: 240,
       story:
-        'Grandma taught me this the week before my wedding. "If you can make rendang, you can make anything." It takes all afternoon — that’s the point. Put on music and stir.',
+        'Grandma taught me this the week before my wedding. "If you can make rendang, you can make anything." It takes all afternoon. That’s the point. Put on music and stir.',
       ingredients: [
         {
           items: [
@@ -141,7 +141,7 @@ export function moreRecipes(ago: (ms: number) => number): {
       servings: 8,
       minutes: 75,
       story:
-        'Copied word for word from great-grandma’s index card — the one with the butter stain in the corner. She wrote “bake in hot oven”, so I worked out the temperatures for you.',
+        'Copied word for word from great-grandma’s index card, the one with the butter stain in the corner. She wrote “bake in hot oven”, so I worked out the temperatures for you.',
       ingredients: [
         {
           items: [
@@ -184,7 +184,7 @@ export function moreRecipes(ago: (ms: number) => number): {
       servings: 10,
       minutes: 240,
       story:
-        'The first year I hosted, the turkey was still frozen in the middle. This is the version I perfected afterwards. Dry-brine it the day before — trust me.',
+        'The first year I hosted, the turkey was still frozen in the middle. This is the version I perfected afterwards. Dry-brine it the day before. Trust me.',
       ingredients: [
         {
           items: [
@@ -221,7 +221,7 @@ export function moreRecipes(ago: (ms: number) => number): {
       servings: 8,
       minutes: 30,
       story:
-        'From my years in Munich. The house smells like Christmas for two days afterwards. Never let it boil — the alcohol is the whole point.',
+        'From my years in Munich. The house smells like Christmas for two days afterwards. Never let it boil: the alcohol is the whole point.',
       ingredients: [
         {
           items: [
@@ -259,7 +259,7 @@ export function moreRecipes(ago: (ms: number) => number): {
       servings: 12,
       minutes: 90,
       story:
-        'Every birthday since you were born. I bake it at midnight so it’s a surprise in the morning — that’s where the name comes from.',
+        'Every birthday since you were born. I bake it at midnight so it’s a surprise in the morning, that’s where the name comes from.',
       ingredients: [
         {
           title: 'Cake',
@@ -284,7 +284,7 @@ export function moreRecipes(ago: (ms: number) => number): {
       ],
       steps: [
         'Preheat the oven to 175°C and grease two 20 cm tins.',
-        'Whisk the dry ingredients together. Add the eggs, buttermilk and oil, then stir in the hot coffee — the batter will be thin.',
+        'Whisk the dry ingredients together. Add the eggs, buttermilk and oil, then stir in the hot coffee: the batter will be thin.',
         'Divide between the tins and bake for 35 minutes, until a skewer comes out clean. Cool completely.',
         'Heat the cream until steaming, pour over the chocolate, wait 5 minutes, then stir until glossy.',
         'Sandwich and cover the cakes with ganache. Candles optional, singing mandatory.',
@@ -302,7 +302,7 @@ export function moreRecipes(ago: (ms: number) => number): {
       title: 'Weeknight Bolognese',
       cuisine: 'Italian',
       authorId: 'me',
-      groupId: 'nuclear-family',
+      groupId: 'home-kitchen',
       cover: bolognese,
       servings: 4,
       minutes: 60,

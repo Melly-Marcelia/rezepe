@@ -88,7 +88,7 @@ function back() {
 
       <div v-else class="empty card">
         <h2>This circle’s cookbook is empty</h2>
-        <p class="muted">Be the first to add a recipe — everyone in the circle will see it.</p>
+        <p class="muted">Be the first to add a recipe: everyone in the circle will see it.</p>
         <RouterLink
           :to="{ path: '/recipes/new', query: { group: group.id } }"
           class="btn btn-accent"

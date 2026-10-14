@@ -1,7 +1,7 @@
 {
-  "name": "Rezepe — family recipes",
+  "name": "Rezepe | family recipes",
   "short_name": "Rezepe",
-  "description": "Keep your family’s recipes — and the stories behind them — alive for the next generation.",
+  "description": "Keep your family’s recipes, and the stories behind them, alive for the next generation.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
