@@ -4,7 +4,6 @@ import { useRouter } from 'vue-router'
 import { Home, BookOpen, Plus, Users, Bell, Search } from 'lucide-vue-next'
 import { useRezepe } from '@/stores/rezepe'
 import BrandMark from './BrandMark.vue'
-import PersonAvatar from './PersonAvatar.vue'
 
 const store = useRezepe()
 const router = useRouter()
@@ -104,21 +103,6 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
       </RouterLink>
     </section>
 
-    <RouterLink v-slot="{ href, navigate, isActive }" to="/profile" custom>
-      <a
-        :href="href"
-        class="item me"
-        title="Your profile"
-        :aria-current="isActive ? 'page' : undefined"
-        @click="navigate"
-      >
-        <PersonAvatar :person="store.me" :size="30" />
-        <span class="label">
-          You
-          <span class="me-name wide-only">{{ store.me.name }}<small>View profile</small></span>
-        </span>
-      </a>
-    </RouterLink>
   </nav>
 </template>
 
@@ -131,7 +115,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
   height: calc(var(--tabbar-h) + env(safe-area-inset-bottom));
   padding: 8px 8px calc(8px + env(safe-area-inset-bottom));
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   align-items: center;
   background: rgb(255 255 255 / 92%);
   backdrop-filter: blur(14px);
@@ -200,10 +184,6 @@ kbd {
   stroke-width: 2.4;
 }
 
-.me[aria-current='page'] img {
-  box-shadow: 0 0 0 2px var(--wine);
-}
-
 .add {
   order: 3;
   color: var(--wine-700);
@@ -230,8 +210,7 @@ kbd {
 }
 
 .item-family,
-.item-activity,
-.me {
+.item-activity {
   order: 4;
 }
 
@@ -292,10 +271,6 @@ kbd {
 
   .add .label {
     display: none;
-  }
-
-  .me {
-    margin-top: auto;
   }
 }
 
@@ -454,38 +429,6 @@ kbd {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-
-  .me {
-    margin-top: auto;
-    padding: 10px 12px;
-    min-height: 60px;
-    border-top: 1px solid var(--line);
-    border-radius: 0 0 12px 12px;
-  }
-
-  .me img {
-    width: 38px !important;
-    height: 38px !important;
-  }
-
-  /* On desktop the profile row shows the name instead of "You". */
-  .me .label {
-    font-size: 0;
-  }
-
-  .me-name {
-    display: grid;
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--wine);
-    line-height: 1.25;
-  }
-
-  .me-name small {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--ink-muted);
   }
 }
 </style>

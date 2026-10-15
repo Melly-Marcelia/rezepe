@@ -2,9 +2,12 @@
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { ArrowLeft } from 'lucide-vue-next'
 import { useRouter } from 'vue-router'
+import { useRezepe } from '@/stores/rezepe'
+import PersonAvatar from './PersonAvatar.vue'
 
 const props = defineProps<{ title: string; eyebrow?: string; back?: string }>()
 const router = useRouter()
+const store = useRezepe()
 
 const large = ref<HTMLElement>()
 const collapsed = ref(false)
@@ -34,6 +37,9 @@ onBeforeUnmount(() => observer?.disconnect())
       </button>
       <p class="mini-title" :aria-hidden="!collapsed">{{ title }}</p>
       <div class="actions"><slot /></div>
+      <RouterLink to="/profile" class="me" aria-label="Your profile">
+        <PersonAvatar :person="store.me" :size="44" ring />
+      </RouterLink>
     </div>
     <div ref="large" class="large">
       <p v-if="eyebrow" class="eyebrow">{{ eyebrow }}</p>
@@ -110,6 +116,10 @@ onBeforeUnmount(() => observer?.disconnect())
   margin-left: auto;
 }
 
+.me {
+  flex-shrink: 0;
+}
+
 .large {
   padding-top: 4px;
   margin-bottom: 24px;
@@ -122,6 +132,11 @@ h1 {
 @media (max-width: 560px) {
   .bar {
     min-height: 60px;
+  }
+
+  .me :deep(img) {
+    width: 38px !important;
+    height: 38px !important;
   }
 
   .large {
