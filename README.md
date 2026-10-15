@@ -2,6 +2,8 @@
 
 **Keep your family’s recipes, and the stories behind them, alive for the next generation.**
 
+**Live demo:** https://melly-marcelia.github.io/rezepe/
+
 Most recipe apps are built for discovering something new. Rezepe is built for the recipes you already have: Grandma’s noodles written on a torn piece of paper, Mum’s voice note, the cookie recipe that only exists in someone’s head. It turns them into a shared family cookbook where every dish keeps its story, and every new generation can add its own twist.
 
 Rezepe started as a UX research project (interviews, personas, journey mapping, Figma prototype) and is now a working, tablet-first web app built with Vue 3.

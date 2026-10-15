@@ -5,7 +5,9 @@ import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  // GitHub Pages serves the site from /rezepe/
+  base: command === 'build' ? '/rezepe/' : '/',
   plugins: [
     vue(),
     vueDevTools(),
@@ -15,4 +17,4 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-})
+}))
