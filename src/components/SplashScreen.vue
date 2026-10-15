@@ -7,14 +7,14 @@ const size = Math.round(Math.min(Math.max(window.innerWidth * 0.2, 110), 180))
 
 onMounted(() => {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  setTimeout(() => (visible.value = false), reduced ? 600 : 2200)
+  setTimeout(() => (visible.value = false), reduced ? 600 : 1400)
 })
 </script>
 
 <template>
   <Transition name="splash">
     <div v-if="visible" class="splash" role="presentation" @click="visible = false">
-      <BrandMark :size="size" wordmark stacked animate class="logo" />
+      <BrandMark :size="size" wordmark stacked class="logo" />
     </div>
   </Transition>
 </template>
