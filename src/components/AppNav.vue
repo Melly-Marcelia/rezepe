@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { Home, BookOpen, Plus, Users, Bell, Search } from 'lucide-vue-next'
 import { useRezepe } from '@/stores/rezepe'
 import BrandMark from './BrandMark.vue'
+import PersonAvatar from './PersonAvatar.vue'
 
 const store = useRezepe()
 const router = useRouter()
@@ -103,6 +104,19 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
       </RouterLink>
     </section>
 
+    <!-- Tablet only: phones and desktop have the profile at the top right of the page -->
+    <RouterLink v-slot="{ href, navigate, isActive }" to="/profile" custom>
+      <a
+        :href="href"
+        class="item me"
+        title="Your profile"
+        :aria-current="isActive ? 'page' : undefined"
+        @click="navigate"
+      >
+        <PersonAvatar :person="store.me" :size="30" />
+        <span class="label">You</span>
+      </a>
+    </RouterLink>
   </nav>
 </template>
 
@@ -182,6 +196,14 @@ kbd {
 
 .item[aria-current='page'] svg {
   stroke-width: 2.4;
+}
+
+.me {
+  display: none;
+}
+
+.me[aria-current='page'] img {
+  box-shadow: 0 0 0 2px var(--wine);
 }
 
 .add {
@@ -272,6 +294,11 @@ kbd {
   .add .label {
     display: none;
   }
+
+  .me {
+    display: grid;
+    margin-top: auto;
+  }
 }
 
 /* ---------- Desktop: labelled sidebar ---------- */
@@ -285,6 +312,10 @@ kbd {
 
   .wide-only {
     display: initial;
+  }
+
+  .me {
+    display: none;
   }
 
   .logo {

@@ -258,6 +258,14 @@ function search() {
   }
 }
 
+/* Tablet: the profile sits at the bottom of the side rail instead. */
+@media (min-width: 1000px) and (max-width: 1279px),
+  (orientation: landscape) and (min-width: 900px) and (max-width: 1279px) {
+  .me {
+    display: none;
+  }
+}
+
 .welcome {
   padding-top: 28px;
 }
